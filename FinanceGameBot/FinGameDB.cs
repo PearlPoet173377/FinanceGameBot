@@ -365,20 +365,28 @@ namespace FinanceGameBot
         {
             int cId = Convert.ToInt32(CompanieId);
             int cprice = GetCurrentPrice(CompanieId);
-            if(cprice <= 10)
+            Random rnd = new Random();
+            int value;
+            float changer;
+            int res;
+            if (cprice <= 10)
             {
-                cprice += 5;
-                return cprice;
+                value = rnd.Next(1000, 2000);
+                changer = (Convert.ToSingle(value)) / 1000;
+                res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                return res;
             }
             if(cprice >=2500)
             {
-                cprice -= 200;
-                return cprice;
+
+                value = rnd.Next(750, 1000);
+                changer = (Convert.ToSingle(value)) / 1000;
+                res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                return res;
             }
-            Random rnd = new Random();
-            int value = rnd.Next(700, 1300);
-            float changer = (Convert.ToSingle(value)) / 1000;
-            int res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+            value = rnd.Next(800, 1250);
+            changer = (Convert.ToSingle(value)) / 1000;
+            res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
             return res;
         }
 
