@@ -715,7 +715,7 @@ namespace FinanceGameBot
         }
 
         //////////////////////////////
-        ///Timer and Rounds
+        ///Rounds
         /////////////////////////////
 
         public void NewRound()
