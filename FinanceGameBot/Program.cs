@@ -13,7 +13,7 @@ namespace FinanceGameBot
     {
         private static async Task Main()
         {
-            var botClient = new TelegramBotClient("5354352885:AAFYfdZllmxxngUEDzRN65IZsGjV4BvNUSU");
+            var botClient = new TelegramBotClient("5180276008:AAFWXxB3LAN0Y-Qt8AKF9phlUX_YUyi9UM0");
             using var cts = new CancellationTokenSource();
 
             var receiverOptions = new ReceiverOptions
@@ -41,6 +41,17 @@ namespace FinanceGameBot
         {
             var a = new FinGameDB();
             a.NewRound();
+            var bot = new TelegramBotClient("5180276008:AAFWXxB3LAN0Y-Qt8AKF9phlUX_YUyi9UM0");
+            int lastId = a.GetLastId();
+            for(int i = 1; i<=lastId;i++)
+            {
+
+                long cId = a.GetPersonId($"{i}");
+                String b = Convert.ToString(a.GetStockCount(Convert.ToString(cId)));
+                String[] countStocks = b.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var t = bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цена на акции изменились!\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.");
+            }
+            
         }
 
         private static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -142,15 +153,17 @@ namespace FinanceGameBot
                                 cancellationToken: cancellationToken);
                             break;
                     }
+                    String d = Convert.ToString(a.GetStockCount(Convert.ToString(chatId)));
+                    String[] latercS = d.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     await botClient.SendTextMessageAsync(
                         chatId: chatId,
-                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
+                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {latercS[0]}.\n{a.GetCompName("2")}: {latercS[1]}.\n{a.GetCompName("3")}: {latercS[2]}.\n{a.GetCompName("4")}: {latercS[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
                         parseMode: ParseMode.Markdown,
                         cancellationToken: cancellationToken);
                     break;
             }
 
-            Console.WriteLine($"Received a '{messageText}' message in chat {chatId}. {chatId.GetType()}");
+            Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
         }
 
         static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)

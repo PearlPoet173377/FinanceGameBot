@@ -370,8 +370,13 @@ namespace FinanceGameBot
                 cprice += 5;
                 return cprice;
             }
+            if(cprice >=2500)
+            {
+                cprice -= 200;
+                return cprice;
+            }
             Random rnd = new Random();
-            int value = rnd.Next(800, 1200);
+            int value = rnd.Next(700, 1300);
             float changer = (Convert.ToSingle(value)) / 1000;
             int res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
             return res;
