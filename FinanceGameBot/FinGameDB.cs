@@ -13,12 +13,12 @@ namespace FinanceGameBot
 {
     class FinGameDB
     {
+        public List<int> changerCompPrice = new List<int>() { 0, 1, 2, 3, 4 };
+
         //////////////////
-        ///Get Persons Info
+        ///Get Info from BD
         /////////////////
-
-        public List<int> changerCompPrice = new List<int >() {0, 1, 2, 3, 4};
-
+        ///
         public int GetLastId()
         {
             string sqlExpression = $"select id from Persons order by id desc limit 1";
@@ -370,24 +370,158 @@ namespace FinanceGameBot
 
         /////////////////////////////
 
-        public void ChangeChangerPrice()
+        public void ChangeChangerCompPrice()
         {
             Random rnd = new Random();
             int value;
-            for (int i =1;i==4;i++)
-            {
-                value = rnd.Next(1, 9);
-            }
+            value = rnd.Next(1, 9);
+            changerCompPrice[1] = value;
+            value = rnd.Next(1, 9);
+            changerCompPrice[2] = value;
+            value = rnd.Next(1, 9);
+            changerCompPrice[3] = value;
+            value = rnd.Next(1, 9);
+            changerCompPrice[4] = value;
         }
 
-        public int AlgForPrice(string CompanieId)
+        public string SendNews()
+        {
+            string txt = "Сводка новостей и прогнозы на следующий раунд.";
+            string name = GetCompName(Convert.ToString(1));
+            switch (changerCompPrice[1])
+            {
+                case 1:
+                    txt = txt + $"\n1)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
+                    break;
+                case 2:
+                    txt = txt + $"\n1)Компания {name} выпустила новую продукцию, которая показала средние продажи и оценки пользователей. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 3:
+                    txt = txt + $"\n1)Компания {name} выпустила новую продукцию. По предворительным данным она провалилась по продажам. Ожидается понижение цен на акции.";
+                    break;
+                case 4:
+                    txt = txt + $"\n1)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка крайне удачна. Ожидается повышение цен акций.";
+                    break;
+                case 5:
+                    txt = txt + $"\n1)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - спорное решение. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 6:
+                    txt = txt + $"\n1)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - неудачный ход. Ожидается понижение цен на акции.";
+                    break;
+                case 7:
+                    txt = txt + $"\n1)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится это исследование, является перспективной. Ожидается повышение цен акций.";
+                    break;
+                case 8:
+                    txt = txt + $"\n1)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, крайне спорна, но имеет некоторые перспективы. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 9:
+                    txt = txt + $"\n1)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, не пользуется большим спросом. Ожидается понижение цен на акции";
+                    break;
+            }
+            name = GetCompName(Convert.ToString(2));
+            switch (changerCompPrice[2])
+            {
+                case 1:
+                    txt = txt + $"\n2)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
+                    break;
+                case 2:
+                    txt = txt + $"\n2)Компания {name} выпустила новую продукцию, которая показала средние продажи и оценки пользователей. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 3:
+                    txt = txt + $"\n2)Компания {name} выпустила новую продукцию. По предворительным данным она провалилась по продажам. Ожидается понижение цен на акции.";
+                    break;
+                case 4:
+                    txt = txt + $"\n2)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка крайне удачна. Ожидается повышение цен акций.";
+                    break;
+                case 5:
+                    txt = txt + $"\n2)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - спорное решение. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 6:
+                    txt = txt + $"\n2)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - неудачный ход. Ожидается понижение цен на акции.";
+                    break;
+                case 7:
+                    txt = txt + $"\n2)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится это исследование, является перспективной. Ожидается повышение цен акций.";
+                    break;
+                case 8:
+                    txt = txt + $"\n2)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, крайне спорна, но имеет некоторые перспективы. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 9:
+                    txt = txt + $"\n2)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, не пользуется большим спросом. Ожидается понижение цен на акции";
+                    break;
+            }
+            name = GetCompName(Convert.ToString(3));
+            switch (changerCompPrice[3])
+            {
+                case 1:
+                    txt = txt + $"\n3)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
+                    break;
+                case 2:
+                    txt = txt + $"\n3)Компания {name} выпустила новую продукцию, которая показала средние продажи и оценки пользователей. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 3:
+                    txt = txt + $"\n3)Компания {name} выпустила новую продукцию. По предворительным данным она провалилась по продажам. Ожидается понижение цен на акции.";
+                    break;
+                case 4:
+                    txt = txt + $"\n3)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка крайне удачна. Ожидается повышение цен акций.";
+                    break;
+                case 5:
+                    txt = txt + $"\n3)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - спорное решение. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 6:
+                    txt = txt + $"\n3)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - неудачный ход. Ожидается понижение цен на акции.";
+                    break;
+                case 7:
+                    txt = txt + $"\n3)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится это исследование, является перспективной. Ожидается повышение цен акций.";
+                    break;
+                case 8:
+                    txt = txt + $"\n3)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, крайне спорна, но имеет некоторые перспективы. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 9:
+                    txt = txt + $"\n3)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, не пользуется большим спросом. Ожидается понижение цен на акции";
+                    break;
+            }
+            name = GetCompName(Convert.ToString(4));
+            switch (changerCompPrice[4])
+            {
+                case 1:
+                    txt = txt + $"\n4)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
+                    break;
+                case 2:
+                    txt = txt + $"\n4)Компания {name} выпустила новую продукцию, которая показала средние продажи и оценки пользователей. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 3:
+                    txt = txt + $"\n4)Компания {name} выпустила новую продукцию. По предворительным данным она провалилась по продажам. Ожидается понижение цен на акции.";
+                    break;
+                case 4:
+                    txt = txt + $"\n4)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка крайне удачна. Ожидается повышение цен акций.";
+                    break;
+                case 5:
+                    txt = txt + $"\n4)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - спорное решение. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 6:
+                    txt = txt + $"\n4)Компания {name} приобрела ещё одну компанию. Эксперты считают, что эта сделка - неудачный ход. Ожидается понижение цен на акции.";
+                    break;
+                case 7:
+                    txt = txt + $"\n4)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится это исследование, является перспективной. Ожидается повышение цен акций.";
+                    break;
+                case 8:
+                    txt = txt + $"\n4)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, крайне спорна, но имеет некоторые перспективы. Ожидается слабое повышение или небольшое понижение цен на акции.";
+                    break;
+                case 9:
+                    txt = txt + $"\n4)Компания {name} заявила о исследовании новой технологии. Тема, на которую проводится исследование, не пользуется большим спросом. Ожидается понижение цен на акции";
+                    break;
+            }
+            return txt;
+        }
+
+        public int AlgForPrice(string CompanieId, int chng)
         {
             int cId = Convert.ToInt32(CompanieId);
             int cprice = GetCurrentPrice(CompanieId);
             Random rnd = new Random();
             int value;
             float changer;
-            int res;
+            int res = cprice;
             if (cprice <= 10)
             {
                 value = rnd.Next(1000, 2000);
@@ -403,16 +537,63 @@ namespace FinanceGameBot
                 res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
                 return res;
             }
-            value = rnd.Next(800, 1250);
-            changer = (Convert.ToSingle(value)) / 1000;
-            res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+
+            switch(changerCompPrice[cId])
+            {
+                case 1:
+                    value = rnd.Next(950, 1300);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 2:
+                    value = rnd.Next(850, 1150);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 3:
+                    value = rnd.Next(700, 1050);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 4:
+                    value = rnd.Next(950, 1300);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 5:
+                    value = rnd.Next(850, 1150);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 6:
+                    value = rnd.Next(700, 1050);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 7:
+                    value = rnd.Next(950, 1300);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 8:
+                    value = rnd.Next(850, 1150);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+                case 9:
+                    value = rnd.Next(700, 1050);
+                    changer = (Convert.ToSingle(value)) / 1000;
+                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                    break;
+            }
+
             return res;
         }
 
         public void ChangePrices(string CompanieId)
         {
             int cId = Convert.ToInt32(CompanieId);
-            int curprice = AlgForPrice(CompanieId);
+            int curprice = AlgForPrice(CompanieId, changerCompPrice[cId]);
             using (var connection = new SqliteConnection("Data Source=fgDB.db"))
             {
                 connection.Open();
@@ -751,6 +932,7 @@ namespace FinanceGameBot
             ChangePrices("2");
             ChangePrices("3");
             ChangePrices("4");
+            ChangeChangerCompPrice();
         }
 
     }

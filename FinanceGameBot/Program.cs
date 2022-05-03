@@ -40,6 +40,7 @@ namespace FinanceGameBot
         private static void TimerCallback(Object o)
         {
             var a = new FinGameDB();
+            string txt = a.SendNews();
             a.NewRound();
             var bot = new TelegramBotClient("5224463084:AAE9d8CEETwuXsEw86swNeFPSGUWrxvBDwA");
             int lastId = a.GetLastId();
@@ -50,8 +51,11 @@ namespace FinanceGameBot
                 String b = Convert.ToString(a.GetStockCount(Convert.ToString(cId)));
                 String[] countStocks = b.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 var t = bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цены на акции изменились.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}. Если нужна помощь, напишите /help");
+                System.Threading.Thread.Sleep(100);
+                var x = bot.SendTextMessageAsync($"{cId}", $"{txt}");
+
             }
-            
+
         }
 
         private static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
