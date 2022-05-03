@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Exceptions;
+using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace FinanceGameBot
 {
@@ -9,6 +16,8 @@ namespace FinanceGameBot
         //////////////////
         ///Get Persons Info
         /////////////////
+
+        public List<int> changerCompPrice = new List<int >() {0, 1, 2, 3, 4};
 
         public int GetLastId()
         {
@@ -361,7 +370,17 @@ namespace FinanceGameBot
 
         /////////////////////////////
 
-        public int AlgForPrice( string CompanieId)
+        public void ChangeChangerPrice()
+        {
+            Random rnd = new Random();
+            int value;
+            for (int i =1;i==4;i++)
+            {
+                value = rnd.Next(1, 9);
+            }
+        }
+
+        public int AlgForPrice(string CompanieId)
         {
             int cId = Convert.ToInt32(CompanieId);
             int cprice = GetCurrentPrice(CompanieId);
