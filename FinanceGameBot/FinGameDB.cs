@@ -13,7 +13,11 @@ namespace FinanceGameBot
 {
     class FinGameDB
     {
-        public List<int> changerCompPrice = new List<int>() {0, 1, 2, 3, 4};
+        public int changer1 = 2;
+        public int changer2 = 5;
+        public int changer3 = 8;
+        public int changer4 = 2;
+
         
         //////////////////
         ///Get Info from BD
@@ -373,22 +377,18 @@ namespace FinanceGameBot
         public void ChangeChangerCompPrice()
         {
             Random rnd = new Random();
-            int value;
-            value = rnd.Next(1, 9);
-            changerCompPrice[1] = value;
-            value = rnd.Next(1, 9);
-            changerCompPrice[2] = value;
-            value = rnd.Next(1, 9);
-            changerCompPrice[3] = value;
-            value = rnd.Next(1, 9);
-            changerCompPrice[4] = value;
+            changer1 = rnd.Next(1, 9);
+            changer2 = rnd.Next(1, 9);
+            changer3 = rnd.Next(1, 9);
+            changer4 = rnd.Next(1, 9);
+
         }
 
         public string SendNews()
         {
             string txt = "Сводка новостей и прогнозы на следующий раунд:";
             string name = GetCompName(Convert.ToString(1));
-            switch (changerCompPrice[1])
+            switch (changer1)
             {
                 case 1:
                     txt = txt + $"\n---------\n1)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
@@ -419,7 +419,7 @@ namespace FinanceGameBot
                     break;
             }
             name = GetCompName(Convert.ToString(2));
-            switch (changerCompPrice[2])
+            switch (changer2)
             {
                 case 1:
                     txt = txt + $"\n---------\n2)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
@@ -450,7 +450,7 @@ namespace FinanceGameBot
                     break;
             }
             name = GetCompName(Convert.ToString(3));
-            switch (changerCompPrice[3])
+            switch (changer3)
             {
                 case 1:
                     txt = txt + $"\n---------\n3)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
@@ -481,7 +481,7 @@ namespace FinanceGameBot
                     break;
             }
             name = GetCompName(Convert.ToString(4));
-            switch (changerCompPrice[4])
+            switch (changer4)
             {
                 case 1:
                     txt = txt + $"\n---------\n4)Компания {name} выпустила новую продукцию. По предворительным данным её ожидает успех по продажам. Ожидается повышение цен на акции.";
@@ -514,7 +514,7 @@ namespace FinanceGameBot
             return txt;
         }
 
-        public int AlgForPrice(string CompanieId, int chng)
+        public int AlgForPrice(string CompanieId)
         {
             int cId = Convert.ToInt32(CompanieId);
             int cprice = GetCurrentPrice(CompanieId);
@@ -537,54 +537,209 @@ namespace FinanceGameBot
                 res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
                 return res;
             }
-
-            switch(changerCompPrice[cId])
+            if (cId == 1)
             {
-                case 1:
-                    value = rnd.Next(950, 1300);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 2:
-                    value = rnd.Next(850, 1150);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 3:
-                    value = rnd.Next(700, 1050);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 4:
-                    value = rnd.Next(950, 1300);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 5:
-                    value = rnd.Next(850, 1150);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 6:
-                    value = rnd.Next(700, 1050);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 7:
-                    value = rnd.Next(950, 1300);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 8:
-                    value = rnd.Next(850, 1150);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
-                case 9:
-                    value = rnd.Next(700, 1050);
-                    changer = (Convert.ToSingle(value)) / 1000;
-                    res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
-                    break;
+                switch (changer1)
+                {
+                    case 1:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 2:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 3:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 4:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 5:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 6:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 7:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 8:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 9:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                }
+            }
+            else if (cId == 2)
+            {
+                switch (changer2)
+                {
+                    case 1:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 2:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 3:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 4:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 5:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 6:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 7:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 8:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 9:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                }
+            }
+            else if (cId == 3)
+            {
+                switch (changer3)
+                {
+                    case 1:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 2:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 3:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 4:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 5:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 6:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 7:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 8:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 9:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                }
+            }
+            else if (cId == 4)
+            {
+                switch (changer4)
+                {
+                    case 1:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 2:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 3:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 4:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 5:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 6:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 7:
+                        value = rnd.Next(950, 1300);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 8:
+                        value = rnd.Next(850, 1150);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                    case 9:
+                        value = rnd.Next(700, 1050);
+                        changer = (Convert.ToSingle(value)) / 1000;
+                        res = Convert.ToInt32((Convert.ToSingle(cprice)) * changer);
+                        break;
+                }
             }
 
             return res;
@@ -593,7 +748,7 @@ namespace FinanceGameBot
         public void ChangePrices(string CompanieId)
         {
             int cId = Convert.ToInt32(CompanieId);
-            int curprice = AlgForPrice(CompanieId, changerCompPrice[cId]);
+            int curprice = AlgForPrice(CompanieId);
             using (var connection = new SqliteConnection("Data Source=fgDB.db"))
             {
                 connection.Open();

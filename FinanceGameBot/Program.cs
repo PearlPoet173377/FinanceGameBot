@@ -31,7 +31,7 @@ namespace FinanceGameBot
             Console.WriteLine($"Start listening for @{me.Username}");
 
             Timer tim = null;
-            tim = new Timer(TimerCallback, null, 0, 90000);
+            tim = new Timer(TimerCallback, null, 0, 30000);
 
             Console.ReadLine();
 
@@ -50,12 +50,12 @@ namespace FinanceGameBot
                 long cId = a.GetPersonId($"{i}");
                 String b = Convert.ToString(a.GetStockCount(Convert.ToString(cId)));
                 String[] countStocks = b.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var t = bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цены на акции изменились.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.\nЕсли нужна помощь, напишите /help");
+                var t = bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цены на акции изменились.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.\nЕсли нужна помощь, напишите /help");
                 System.Threading.Thread.Sleep(100);
                 var x = bot.SendTextMessageAsync($"{cId}", $"{txt}");
 
             }
-
+            txt = "";
         }
 
         private static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -82,12 +82,12 @@ namespace FinanceGameBot
                     case "/start":
                         await botClient.SendTextMessageAsync(
                             chatId: chatId,
-                            text: $"Привет! Это Финансовая игра. Здесь Вы можете покупать и продавать акции компаний.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
+                            text: $"Привет! Это Финансовая игра. Здесь Вы можете покупать и продавать акции компаний.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
                             parseMode: ParseMode.Markdown,
                             cancellationToken: cancellationToken);
                         await botClient.SendTextMessageAsync(
                             chatId: chatId,
-                            text: $"Правила игры: Вам нужна покупать и продавать акции, тем самым зарабатывая деньги.\nПример запроса: /buy 3 10.\nПервое слово имеет варианты: /buy (покупка акций), /sell (продажа акций) или /info (получение информации о компании).\nВторая цифра - номер компании, как в списке.\nТретья цифра - количество акций (при получении информации компании эта цифра не нужна). Между числами обязательно нужны пробелы.",
+                            text: $"Правила игры: Вам нужна покупать и продавать акции, тем самым зарабатывая деньги.\n---------\nПример запроса: /buy 3 10.\nПервое слово имеет варианты: /buy (покупка акций), /sell (продажа акций) или /info (получение информации о компании).\nВторая цифра - номер компании, как в списке.\nТретья цифра - количество акций (при получении информации компании эта цифра не нужна). Между числами обязательно нужны пробелы.",
                             parseMode: ParseMode.Markdown,
                             cancellationToken: cancellationToken);
                         a.AddPerson(chatId);
@@ -95,12 +95,12 @@ namespace FinanceGameBot
                     case "/help":
                         await botClient.SendTextMessageAsync(
                             chatId: chatId,
-                            text: $"Привет! Это Финансовая игра. Здесь Вы можете покупать и продавать акции компаний.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
+                            text: $"Привет! Это Финансовая игра. Здесь Вы можете покупать и продавать акции компаний.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
                             parseMode: ParseMode.Markdown,
                             cancellationToken: cancellationToken);
                         await botClient.SendTextMessageAsync(
                             chatId: chatId,
-                            text: $"Правила игры: Вам нужна покупать и продавать акции, тем самым зарабатывая деньги.\nПример запроса: /buy 3 10.\nПервое слово имеет варианты: /buy (покупка акций), /sell (продажа акций) или /info (получение информации о компании).\nВторая цифра - номер компании, как в списке.\nТретья цифра - количество акций (при получении информации компании эта цифра не нужна). Между числами обязательно нужны пробелы.",
+                            text: $"Правила игры: Вам нужна покупать и продавать акции, тем самым зарабатывая деньги.\n---------\nПример запроса: /buy 3 10.\nПервое слово имеет варианты: /buy (покупка акций), /sell (продажа акций) или /info (получение информации о компании).\nВторая цифра - номер компании, как в списке.\nТретья цифра - количество акций (при получении информации компании эта цифра не нужна). Между числами обязательно нужны пробелы.",
                             parseMode: ParseMode.Markdown,
                             cancellationToken: cancellationToken);
                         a.AddPerson(chatId);
@@ -121,7 +121,7 @@ namespace FinanceGameBot
                                     String[] latercS = d.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                                     await botClient.SendTextMessageAsync(
                                         chatId: chatId,
-                                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {latercS[0]}.\n{a.GetCompName("2")}: {latercS[1]}.\n{a.GetCompName("3")}: {latercS[2]}.\n{a.GetCompName("4")}: {latercS[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
+                                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {latercS[0]}.\n{a.GetCompName("2")}: {latercS[1]}.\n{a.GetCompName("3")}: {latercS[2]}.\n{a.GetCompName("4")}: {latercS[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
                                         parseMode: ParseMode.Markdown,
                                         cancellationToken: cancellationToken);
                                 }
@@ -143,7 +143,7 @@ namespace FinanceGameBot
                                     String[] latercS = d.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                                     await botClient.SendTextMessageAsync(
                                         chatId: chatId,
-                                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {latercS[0]}.\n{a.GetCompName("2")}: {latercS[1]}.\n{a.GetCompName("3")}: {latercS[2]}.\n{a.GetCompName("4")}: {latercS[3]}.\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
+                                        text: $"Ваш баланс: {a.GetPersonMoney(Convert.ToString(chatId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {latercS[0]}.\n{a.GetCompName("2")}: {latercS[1]}.\n{a.GetCompName("3")}: {latercS[2]}.\n{a.GetCompName("4")}: {latercS[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.",
                                         parseMode: ParseMode.Markdown,
                                         cancellationToken: cancellationToken);
                                 }
