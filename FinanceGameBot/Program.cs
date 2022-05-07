@@ -31,7 +31,7 @@ namespace FinanceGameBot
             Console.WriteLine($"Start listening for @{me.Username}");
 
             Timer tim = null;
-            tim = new Timer(TimerCallback, null, 0, 30000);
+            tim = new Timer(TimerCallback, null, 0, 90000);
 
             Console.ReadLine();
 
@@ -75,7 +75,7 @@ namespace FinanceGameBot
             String b = Convert.ToString(a.GetStockCount(Convert.ToString(chatId)));
             String[] countStocks = b.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (((Convert.ToString(s[0]) == "/start" || Convert.ToString(s[0]) == "/help") && s.Length == 1) || (messageText=="/start"||messageText=="/help"))
+            if (((Convert.ToString(words[0]) == "/buy" || Convert.ToString(words[0]) == "/sell") && words.Length == 3) || (messageText=="/start"||messageText=="/help") || (Convert.ToString(words[0])=="/info" && words.Length==2))
             {
                 switch (messageText)
                 {
