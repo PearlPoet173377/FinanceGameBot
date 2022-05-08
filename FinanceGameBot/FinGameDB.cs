@@ -3,11 +3,6 @@ using System.Threading;
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using System.Threading.Tasks;
-using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Extensions.Polling;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 namespace FinanceGameBot
 {
@@ -883,4 +878,3 @@ namespace FinanceGameBot
 
     }
 }
-
