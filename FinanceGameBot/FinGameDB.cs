@@ -13,11 +13,6 @@ namespace FinanceGameBot
 {
     class FinGameDB
     {
-        public int changer1 = 2;
-        public int changer2 = 5;
-        public int changer3 = 8;
-        public int changer4 = 2;
-
         
         //////////////////
         ///Get Info from BD
@@ -373,7 +368,8 @@ namespace FinanceGameBot
         }
 
         /////////////////////////////
-
+        /// Change Prices
+        ////////////////////////////
         public void ChangeChangerCompPrice()
         {
             Random rnd = new Random();

@@ -55,7 +55,6 @@ namespace FinanceGameBot
                 var x = bot.SendTextMessageAsync($"{cId}", $"{txt}");
 
             }
-            txt = "";
         }
 
         private static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
