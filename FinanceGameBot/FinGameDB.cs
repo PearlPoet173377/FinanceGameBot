@@ -191,6 +191,60 @@ namespace FinanceGameBot
             return res;
         }
 
+        public int GetFirstPlace()
+        {
+            string sqlExpression = $"select money from Persons order by money desc limit 1";
+            using (var connection = new SqliteConnection("Data Source=fgDB.db"))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var result = reader.GetValue(0);
+                            int res = Convert.ToInt32(result);
+                            return res;
+                        }
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public long GetLeaderName()
+        {
+            string sqlExpression = $"select chatid from Persons order by money desc limit 1";
+            using (var connection = new SqliteConnection("Data Source=fgDB.db"))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var result = reader.GetValue(0);
+                            long res = Convert.ToInt64(result);
+                            return res;
+                        }
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+            return 0;
+        }
+
         ////////////////////////
         ///GetPrice
         ///////////////////////
