@@ -5,8 +5,6 @@ Telegram-бот "Финансовая игра".
 
 Используемая IDE Visual Studio 2019.
 
-Framework: .NET 5.0.
-
 Файлы проекта: Program.cs, FinGameDB.cs.
 
 СУБД: SQLite.
