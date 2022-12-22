@@ -31,7 +31,7 @@ namespace FinanceGameBot
             Console.WriteLine($"Start listening for @{me.Username}");
 
             Timer tim = null;
-            tim = new Timer(TimerCallback, null, 0, 120000);
+            tim = new Timer(TimerCallback, null, 0, 60000);
 
             Console.ReadLine();
 
@@ -50,17 +50,17 @@ namespace FinanceGameBot
                 long cId = a.GetPersonId($"{i}");
                 String b = Convert.ToString(a.GetStockCount(Convert.ToString(cId)));
                 String[] countStocks = b.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var t = bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цены на акции изменились.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.\n---------\nЕсли нужна помощь, напишите /help");
+                bot.SendTextMessageAsync($"{cId}", $"Начался новый раунд! Цены на акции изменились.\nВаш баланс: {a.GetPersonMoney(Convert.ToString(cId))}.\n---------\nВаши купленные акции компаний:\n{a.GetCompName("1")}: {countStocks[0]}.\n{a.GetCompName("2")}: {countStocks[1]}.\n{a.GetCompName("3")}: {countStocks[2]}.\n{a.GetCompName("4")}: {countStocks[3]}.\n---------\nСписок компаний:\n1) {a.GetCompName("1")}. Текущая цена: {a.GetCurrentPrice("1")}.\n2) {a.GetCompName("2")}. Текущая цена: {a.GetCurrentPrice("2")}.\n3) {a.GetCompName("3")}. Текущая цена: {a.GetCurrentPrice("3")}.\n4) {a.GetCompName("4")}. Текущая цена: {a.GetCurrentPrice("4")}.\n---------\nЕсли нужна помощь, напишите /help");
                 System.Threading.Thread.Sleep(100);
-                var x = bot.SendTextMessageAsync($"{cId}", $"{txt}");
+                bot.SendTextMessageAsync($"{cId}", $"{txt}");
                 System.Threading.Thread.Sleep(100);
                 if (cId == a.GetLeaderName())
                 {
-                    var w = bot.SendTextMessageAsync($"{cId}", $"Вы на первом месте по количеству денег среди других игроков!");
+                    bot.SendTextMessageAsync($"{cId}", $"Вы на первом месте по количеству денег среди других игроков!");
                 }
                 else
                 {
-                    var w = bot.SendTextMessageAsync($"{cId}", $"Лидер по количеству денег имеет баланс {a.GetFirstPlace()}.");
+                    bot.SendTextMessageAsync($"{cId}", $"Лидер по количеству денег имеет баланс {a.GetFirstPlace()}.");
                 }
             }
         }
